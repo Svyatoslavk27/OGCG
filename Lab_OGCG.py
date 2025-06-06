@@ -72,8 +72,8 @@ plt.fill(triangle_rot[:, 0], triangle_rot[:, 1], 'lime', alpha=0.3)
 
 # Текст
 plt.text(-3.0, 2.1, "Трикутник", fontsize=13, family='serif')
-plt.text(-3.0, 1.8, "найбільшої        площі", fontsize=13, family='serif')
-plt.text(-3.0, 1.5, "вписаний      в     опуклу", fontsize=13, family='serif')
+plt.text(-3.0, 1.8, "найбільшої  площі", fontsize=13, family='serif')
+plt.text(-3.0, 1.5, "вписаний  в  опуклу", fontsize=13, family='serif')
 plt.text(-3.0, 1.2, "оболонку", fontsize=13, family='serif')
 
 plt.axis("equal")
@@ -81,5 +81,5 @@ plt.axis("off")
 plt.tight_layout()
 plt.show()
 
-# Друк площі (опціонально)
+# Друк площі
 print(f"Максимальна площа трикутника: {area:.5f}")
