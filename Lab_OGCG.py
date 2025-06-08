@@ -16,30 +16,33 @@ def max_area_triangle(points):
     max_area = 0
     best_triangle = None
     for i in range(n):
+        # Оптимізація: j починається з i + 1
+        # k також рухається монотонно
+        k_ptr = (i + 2) % n 
         for j in range(i + 1, n):
-            k = (j + 1) % n
+            # Переміщуємо k_ptr, доки площа збільшується
             while True:
-                next_k = (k + 1) % n
-                area1 = 0.5 * abs(np.cross(points[j] - points[i], points[k] - points[i]))
+                next_k = (k_ptr + 1) % n
+                area1 = 0.5 * abs(np.cross(points[j] - points[i], points[k_ptr] - points[i]))
                 area2 = 0.5 * abs(np.cross(points[j] - points[i], points[next_k] - points[i]))
                 if area2 > area1:
-                    k = next_k
+                    k_ptr = next_k
                 else:
                     break
-            area = 0.5 * abs(np.cross(points[j] - points[i], points[k] - points[i]))
+            area = 0.5 * abs(np.cross(points[j] - points[i], points[k_ptr] - points[i]))
             if area > max_area:
                 max_area = area
-                best_triangle = (i, j, k)
+                best_triangle = (i, j, k_ptr)
     return best_triangle, max_area
 
 triangle_indices, area = max_area_triangle(hull_points)
 triangle = hull_points[list(triangle_indices)]
 
-# Вибір 10 внутрішніх точок
+# Вибір 10 внутрішніх точок (для візуалізації)
 hull_idx = set(hull.vertices)
 interior = np.array([p for i, p in enumerate(all_points) if i not in hull_idx])[:10]
 
-# Обертання
+# Обертання точок для візуалізації
 def rotate_points(points, angle_deg):
     angle = np.radians(angle_deg)
     R = np.array([[np.cos(angle), -np.sin(angle)],
@@ -79,6 +82,10 @@ plt.text(-3.0, 1.2, "оболонку", fontsize=13, family='serif')
 plt.axis("equal")
 plt.axis("off")
 plt.tight_layout()
+plt.show()
+
+# Друк площі
+print(f"Максимальна площа трикутника: {area:.5f}")
 plt.show()
 
 # Друк площі
